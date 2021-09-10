@@ -1,0 +1,8 @@
+# contruindo imagem
+docker build -t node-image -f api/Dockerfile .
+
+
+# rodando imagem no container
+# -p definine a porta que sera exposta no ex: 9001
+# --link cria um link entre os container e o nome dele pode ser utilizado como host em conexao por exemplo
+docker run -d -v $(pwd)/api:/home/node/app -p 9001:9001 --link mysql-container --rm --name node-container node-image

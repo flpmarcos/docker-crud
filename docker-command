@@ -1,0 +1,10 @@
+# install docker and docker composer
+
+
+# rodando docker compose
+# -d faz os containers rodarem em background
+docker compose up -d
+
+
+# para containers
+docker compose stop

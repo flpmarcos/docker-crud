@@ -1,0 +1,32 @@
+# Construir imagem (pasta raiz)
+# -t significa tag ou seja estamos dando um nome a imagem
+$ -f especifica o arquivo dockerfile para gerar a imagem 
+docker build -t mysql-image -f api/db/Dockerfile
+
+# Criando container
+# -d significa que o container vai ser executado em background
+# -rm significa se o container for existir ele vai remover para que um novo seja criado
+# -name significa o nome do container
+# mysql-image é o nome da imagem que foi criada
+docker run -d --rm --name mysql-container mysql-image
+
+# executando docker run inserindo o volume externo onde serão armazenadas as informações do banco de dados
+# $(pwd)/api/db/data -> caminho do servidor onde se encontra o código
+# /var/lib/mysql -> caminho do serviço dentro do docker
+docker run -d -v $(pwd)/api/db/data:/var/lib/mysql --rm --name mysql-container mysql-image
+
+
+# Executando comandos dentro de um container
+#  -i significa que o comando é o no modo interativo
+# mysql-container é o nome do container 
+# depois do nome é o comando
+docker exec -i mysql-container -uroot -pprogramadormaromba < api/db/script.sql
+
+# Executar comando para acessar container
+# -t siginifica que vamos usar o terminal
+# /bin/bash significa a utilização de bash -> linguagem de comandos
+docker exec -it mysql-container /bin/bash
+
+
+# Saber configuracoes de IP do docker
+docker inspect mysql-container

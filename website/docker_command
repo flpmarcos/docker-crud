@@ -1,0 +1,5 @@
+#contruindo imagem php
+docker build -t php-image -f website/Dockerfile .
+
+#rodando container
+docker run -d -v $(pwd)/website:/var/www/html -p 8888:80 --link node-container --rm --name php-container php-image
